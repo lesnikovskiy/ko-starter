@@ -13,8 +13,11 @@ gulp.task("build", function() {
 		.pipe(gulp.dest("./src"));
 });
 
-gulp.task("watch", ["watch"], function() {
-	gulp.watch("*.js", ["build"]);
+gulp.task("watch", function() {
+	var watcher = gulp.watch("./src/**/*.js", ["build"]);
+	watcher.on("change", function (event) {
+		console.log("File " + event.path + " was " + event.type + ", running tasks ...");
+	});
 });
 
 gulp.task("default", ["watch"]);
